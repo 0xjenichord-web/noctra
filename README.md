@@ -17,6 +17,7 @@ Didukung oleh arsitektur **NEA (Noctra Engine Architecture)**, Noctra memungkink
 ## ✨ Fitur Utama
 
 - 🧠 **AST-Based Detection**: Menganalisis struktur kode (bukan sekadar teks) untuk mendeteksi *Prototype Pollution*, *XSS*, *Eval Injection*, dan lainnya dengan akurasi tinggi.
+- ⛓️ **Web3 & Solidity Support**: Dedicated engine for smart contract auditing, detecting patterns like `tx.origin` auth, unsafe `delegatecall`, and reentrancy risks.
 - 🏗️ **NEA Architecture**: Arsitektur modular di mana setiap fitur adalah "Engine" yang berkomunikasi melalui kontrak data yang ketat (*immutable* & *validated*).
 - ⚡ **Multi-Engine Orchestration**: Menjalankan beberapa engine (misal: Vulnerability Scanner + Dependency Checker) secara paralel dalam satu perintah.
 - 🛡️ **Read-Only by Default**: Dirancang dengan prinsip keamanan maksimal, menolak *path traversal*, *symlinks*, dan eksekusi kode yang tidak sah.
