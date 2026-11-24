@@ -7,7 +7,9 @@
     "node": ">=20"
   },
   "scripts": {
-    "test": "node --test tests/*.test.mjs"
+    "test": "node --test tests/*.test.mjs",
+    "docs:generate": "node tools/docs/generate-engine-docs.mjs",
+    "prepare": "husky"
   },
   "dependencies": {
     "@sveltejs/acorn-typescript": "^1.0.13",
@@ -17,5 +19,8 @@
   "type": "module",
   "bin": {
     "noctra": "./bin/noctra.mjs"
+  },
+  "devDependencies": {
+    "husky": "^9.1.7"
   }
 }
