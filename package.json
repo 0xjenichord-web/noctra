@@ -12,6 +12,7 @@
     "prepare": "husky"
   },
   "dependencies": {
+    "@solidity-parser/parser": "^0.20.2",
     "@sveltejs/acorn-typescript": "^1.0.13",
     "acorn": "^8.19.0",
     "acorn-jsx": "^5.3.2"
