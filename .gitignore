@@ -1,0 +1,22 @@
+# Dependencies
+node_modules/
+
+# Reports & outputs
+*.json
+!package.json
+!package-lock.json
+report.json
+final-report.json
+
+# Backup files
+*.bak-*
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Test artifacts
+test-project/
+
+# Logs
+*.log
