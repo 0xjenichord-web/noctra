@@ -16,7 +16,6 @@ final-report.json
 Thumbs.db
 
 # Test artifacts
-test-project/
 
 # Logs
 *.log
