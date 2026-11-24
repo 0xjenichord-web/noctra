@@ -19,3 +19,8 @@ Thumbs.db
 
 # Logs
 *.log
+
+# Target testing folders (ignore embedded git)
+openzeppelin-contracts/
+scaffold-eth-2/
+metamask-extension/
