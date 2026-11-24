@@ -1,5 +1,6 @@
 # 🛡️ NOCTRA
 [![CI](https://github.com/0xjenichord-web/noctra/actions/workflows/test.yml/badge.svg)](https://github.com/0xjenichord-web/noctra/actions/workflows/test.yml)
+[![CI](https://github.com/0xjenichord-web/noctra/actions/workflows/test.yml/badge.svg)](https://github.com/0xjenichord-web/noctra/actions/workflows/test.yml)
 
 > Independent security research and bug bounty intelligence system.
 
