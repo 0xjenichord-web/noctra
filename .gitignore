@@ -24,3 +24,8 @@ Thumbs.db
 openzeppelin-contracts/
 scaffold-eth-2/
 metamask-extension/
+
+# Target testing folders (embedded git)
+openzeppelin-contracts/
+scaffold-eth-2/
+metamask-extension/
