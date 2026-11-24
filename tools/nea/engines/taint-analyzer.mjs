@@ -7,7 +7,7 @@ const ENGINE_ID = 'noctra.taint-analyzer';
 export const descriptor = createEngineDescriptor({
   id: ENGINE_ID,
   name: 'Noctra Taint Analysis Engine',
-  version: '1.1.0',
+  version: '1.2.0',
   domain: 'security',
   capabilities: ['scan', 'taint-tracking', 'data-flow-analysis'],
   inputContract: 'universal.input.v1',
@@ -18,7 +18,6 @@ export const descriptor = createEngineDescriptor({
 const SOURCE_PATTERNS = ['req.body', 'req.query', 'req.params', 'req.headers', 'process.argv', 'document.location', 'window.name'];
 const SINK_FUNCTIONS = ['eval', 'Function', 'setTimeout', 'setInterval', 'exec', 'execSync'];
 
-// Fungsi rekursif untuk membangun jalur lengkap (misal: "req.body.expression")
 function getNodePath(node) {
   if (!node) return '';
   if (node.type === 'Identifier') return node.name;
@@ -31,13 +30,16 @@ function getNodePath(node) {
     const calleePath = getNodePath(node.callee);
     return calleePath ? `${calleePath}()` : '';
   }
-  return '';
+  return ''; // Literal, ArrayExpression, dll mengembalikan string kosong
 }
 
 function isSource(node) {
   const path = getNodePath(node);
-  // Cek apakah jalur ini cocok atau dimulai dengan pola sumber yang dikenal
-  return SOURCE_PATTERNS.some(p => path === p || path.startsWith(p + '.') || p.includes(path));
+  // PERBAIKAN: Pastikan path tidak kosong sebelum mencocokkan
+  if (!path) return false; 
+  
+  // Cocokkan persis (req.body) atau sebagai prefix (req.body.user)
+  return SOURCE_PATTERNS.some(p => path === p || path.startsWith(p + '.'));
 }
 
 function runTaintAnalysis(filePath, sourceCode) {
@@ -51,7 +53,7 @@ function runTaintAnalysis(filePath, sourceCode) {
     function walk(node) {
       if (!node || typeof node !== 'object') return;
 
-      // 1. Deteksi SOURCE: Tandai variabel sebagai "terkontaminasi"
+      // 1. Deteksi SOURCE
       if (node.type === 'VariableDeclarator' && node.init && isSource(node.init)) {
         if (node.id.type === 'Identifier') taintedVars.add(node.id.name);
       }
@@ -59,7 +61,7 @@ function runTaintAnalysis(filePath, sourceCode) {
         if (node.left.type === 'Identifier') taintedVars.add(node.left.name);
       }
 
-      // 2. Deteksi SINK: Cek apakah variabel tainted masuk ke fungsi berbahaya
+      // 2. Deteksi SINK (Function Calls)
       if (node.type === 'CallExpression') {
         const calleeName = node.callee.name || (node.callee.property ? node.callee.property.name : '');
         
@@ -70,10 +72,11 @@ function runTaintAnalysis(filePath, sourceCode) {
 
           if (hasTaintedArg) {
             const lineNum = node.loc ? node.loc.start.line : 0;
+            const taintedVarName = node.arguments.find(a => taintedVars.has(a.name))?.name;
             findings.push({
               rule: 'TAINT_FLOW_TO_DANGEROUS_SINK',
               severity: 'CRITICAL',
-              message: `Taint Analysis: User-controlled data ('${node.arguments.find(a => taintedVars.has(a.name))?.name}') flows into ${calleeName}().`,
+              message: `Taint Analysis: User-controlled data ('${taintedVarName}') flows into ${calleeName}().`,
               file: filePath,
               line: lineNum,
               snippet: lines[lineNum - 1].trim()
@@ -100,7 +103,7 @@ function runTaintAnalysis(filePath, sourceCode) {
         }
       }
 
-      // Rekursi ke child nodes
+      // Rekursi
       for (const key in node) {
         if (['loc', 'range', 'parent', 'start', 'end'].includes(key)) continue;
         const child = node[key];
@@ -111,7 +114,7 @@ function runTaintAnalysis(filePath, sourceCode) {
 
     walk(ast);
   } catch (e) {
-    // Abaikan file yang tidak bisa di-parse (misal: file non-JS yang lolos filter)
+    // Abaikan file yang tidak bisa di-parse
   }
 
   return findings;
