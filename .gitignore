@@ -29,3 +29,19 @@ metamask-extension/
 openzeppelin-contracts/
 scaffold-eth-2/
 metamask-extension/
+# Folder testing & cloning sementara
+0g-storage-client/
+solana-vault/
+solana-ctf/
+ctf-archives/
+anchor/
+
+# Dependency & Cache
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# File konfigurasi lokal & database watchlist
+.env
+.noctra/
