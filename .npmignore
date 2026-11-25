@@ -1,0 +1,7 @@
+.git
+.github
+test-project/
+benchmarks/
+*.sarif
+*.html
+node_modules/
