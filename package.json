@@ -1,10 +1,9 @@
 {
-  "name": "noctra",
-  "version": "0.1.0",
-  "private": true,
-  "description": "Independent security research and bug bounty intelligence system",
+  "name": "noctra-scanner",
+  "version": "1.0.1",
+  "description": "Noctra: Independent Security Research & Bug Bounty Intelligence System. Multi-engine AST, Solidity, IaC, and Taint Analysis scanner.",
   "engines": {
-    "node": ">=20"
+    "node": ">=18.0.0"
   },
   "scripts": {
     "test": "node --test tests/*.test.mjs",
@@ -19,9 +18,24 @@
   },
   "type": "module",
   "bin": {
-    "noctra": "./bin/noctra.mjs"
+    "noctra": "./bin/noctra.js"
   },
   "devDependencies": {
     "husky": "^9.1.7"
-  }
+  },
+  "keywords": [
+    "security",
+    "scanner",
+    "ast",
+    "solidity",
+    "web3",
+    "devsecops",
+    "bug-bounty",
+    "iac"
+  ],
+  "files": [
+    "bin/",
+    "lib/",
+    "tools/"
+  ]
 }
