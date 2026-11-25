@@ -1,5 +1,9 @@
 #!/usr/bin/env node
 
+// Hardcoded version to completely avoid Node.js 20+ ESM JSON import errors
+const VERSION = "1.0.5";
+
+import { parseArgs } from '../lib/cli/parser.mjs';
 import { scanCommand } from '../lib/cli/commands/scan.mjs';
 import { descriptor as bountyDescriptor, execute as bountyExecute } from '../tools/nea/engines/bounty-hunter.mjs';
 import { createExecutionRequest } from '../tools/nea/core/contracts.mjs';
@@ -29,8 +33,7 @@ EXAMPLES:
 }
 
 if (command === '--version' || command === '-v') {
-  const pkg = await import('../package.json', { assert: { type: 'json' } });
-  console.log(`Noctra v${pkg.default.version}`);
+  console.log(`Noctra v${VERSION}`);
   process.exit(0);
 }
 
@@ -56,7 +59,7 @@ if (command === 'scan') {
   const minBounty = parseInt(args[2]) || 0;
   const limit = 10;
   
-  console.log(`🛡️ Noctra Bounty Hunter v1.0.0`);
+  console.log(`🛡️ Noctra Bounty Hunter v${VERSION}`);
   console.log(`================================`);
   
   try {
