@@ -1,6 +1,6 @@
 {
   "name": "noctra-scanner",
-  "version": "1.0.5",
+  "version": "2.2.0",
   "description": "Noctra: Independent Security Research & Bug Bounty Intelligence System. Multi-engine AST, Solidity, IaC, and Taint Analysis scanner.",
   "engines": {
     "node": ">=18.0.0"
