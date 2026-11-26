@@ -45,3 +45,13 @@ yarn-error.log*
 # File konfigurasi lokal & database watchlist
 .env
 .noctra/
+
+# === Noctra Audit Artifacts (jangan pernah di-commit) ===
+*.html
+*.sarif
+*.bak
+*.backup
+*.v2.*
+*-audit.*
+*-audit.html
+noctra-*
